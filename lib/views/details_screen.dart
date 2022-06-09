@@ -5,6 +5,7 @@ import 'package:flutter_glow/flutter_glow.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_task_app/helper/icon_buttons.dart';
 import 'package:todo_task_app/model/task_model.dart';
+import 'package:todo_task_app/views/add_task.dart';
 
 class DetailTaskScreen extends StatelessWidget {
  final TaskModel todo;
@@ -107,7 +108,15 @@ const Spacer(),
                    ),
                    Expanded(child: Container()),
                              Expanded(
-        child: detailButton(text: 'Update',press: (){})
+        child: detailButton(text: 'Update',press: (){
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
+            return AddTask(
+              index: index,
+              todo: todo,
+            );
+          }));
+          
+        })
                    ),
                 ],
               ),

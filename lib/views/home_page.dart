@@ -3,10 +3,12 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_task_app/model/task_model.dart';
 import 'package:todo_task_app/prac/color.dart';
 import 'package:todo_task_app/views/details_screen.dart';
 
+import '../provider/home_provider.dart';
 import '../widgets/home_card.dart';
 import '../widgets/home_page_card.dart';
 import 'add_task.dart';
@@ -21,7 +23,12 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green.shade900,
         onPressed: (){
-     Navigator.push(context, MaterialPageRoute(builder: (context)=>AddTask())); 
+           Provider.of<HomeProvider>(context,listen: false).titleController.text='';
+            Provider.of<HomeProvider>(context,listen: false).desController.text='';
+    
+     Navigator.push(context, MaterialPageRoute(builder: (context){
+       return AddTask();
+     })); 
       //   Navigator.push(context, MaterialPageRoute(builder: (context)=>COls())); 
         },child: Icon(Icons.add),),
       appBar: AppBar(
@@ -45,6 +52,8 @@ return ListView.builder(
         
         return InkWell(
           onTap: (){
+           
+         
             Navigator.push(context,MaterialPageRoute(builder: (context)=>DetailTaskScreen(todo: todo!,index:index)));
           },
           child: Home_card(

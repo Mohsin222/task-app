@@ -24,7 +24,7 @@ final TaskModel todo;
       child: Container(
         padding: EdgeInsets.all(20),
         margin: EdgeInsets.all(4),
-        color: todo.tileColor == null ? Colors.grey : Color(todo.tileColor),
+        color: todo.tileColor == null ? Colors.grey: Color(todo.tileColor).withOpacity(0.6) ,
         child: Column(
           children: [
             Expanded(
