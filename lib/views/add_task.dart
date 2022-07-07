@@ -1,16 +1,10 @@
-// ignore_for_file: unnecessary_new, deprecated_member_use
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_task_app/helper/popup_dialog.dart';
-import 'package:todo_task_app/model/task_model.dart';
-
+import 'package:todo_task_app/views/home_page.dart';
 import '../helper/glow_btn.dart';
 import '../provider/home_provider.dart';
 
@@ -37,32 +31,26 @@ class AddTask extends StatelessWidget {
     }
   }
 
-  setOldValues(BuildContext context) {
-    if (index != null) {
-      Provider.of<HomeProvider>(context, listen: false).setOldValues(todo!);
-    } else {}
-  }
-
   @override
   Widget build(BuildContext context) {
-    setOldValues(context);
-    // print(todo.complete);
+   
     return Scaffold(
-      backgroundColor: Colors.cyanAccent,
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('ADD TASK'),
+        title: const Text('ADD TASK',style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
+        centerTitle: true,
         automaticallyImplyLeading: false,
       ),
       body: Consumer<HomeProvider>(
         builder: (context, value, child) {
- 
+
 
           return SingleChildScrollView(
             child: Container(
-                color: Colors.black,
-   
+                //color: Colors.black,
                 child: Column(
                   children: [
+     
                     fieldsHeading(title: 'Title'),
                     textField(
                         hintText: '',
@@ -91,16 +79,17 @@ class AddTask extends StatelessWidget {
                           Expanded(
                               flex: 1,
                               child: Text(
-                                value.dateTime.toString(),
-                                style:
-                                    TextStyle(fontSize: 16, color: Colors.white),
+                                DateFormat('yyyy-MM-dd KK:mm a')
+                                    .format(DateTime.now()),
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.white),
                               )),
                         ],
                       ),
                     ),
-
-               
-Divider(color: Colors.black,),
+                    Divider(
+                      color: Colors.black,
+                    ),
                     Container(
                       width: double.infinity,
                       margin: EdgeInsets.all(15),
@@ -108,15 +97,11 @@ Divider(color: Colors.black,),
                         onPressed: () {
                           value.openFullMaterialColorPicker(context);
                         },
-                        child: Text('Color'),
+                        child: Text('Color',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w600,letterSpacing: 2,color: Colors.black),),
                         style: ElevatedButton.styleFrom(
-                            primary: Color(value.oldColor)
-                            
-                            //   primary: Colors.red
-                            ),
+                            primary: value.tempMainColor ?? Colors.white),
                       ),
                     ),
-
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -126,8 +111,8 @@ Divider(color: Colors.black,),
                               child: Glow_btn(
                                   text: 'Back',
                                   press: () {
-                                  //  value.resetValues();
-                                    Navigator.pop(context);
+                               
+                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
                                   })),
                           Expanded(child: Container()),
                           Expanded(
@@ -152,6 +137,7 @@ Divider(color: Colors.black,),
       required TextEditingController controller,
       required int maxLines}) {
     return Container(
+      
       margin: const EdgeInsets.all(5),
       child: TextField(
         maxLines: maxLines,
@@ -160,7 +146,7 @@ Divider(color: Colors.black,),
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           hintText: hintText,
-          fillColor: Colors.grey,
+          fillColor: Colors.white,
           hintStyle: const TextStyle(fontSize: 20.0, color: Colors.white),
           filled: true,
         ),
@@ -176,7 +162,7 @@ Divider(color: Colors.black,),
         alignment: Alignment.centerLeft,
         child: Text(
           title,
-          style: const TextStyle(color: Colors.black, fontSize: 24),
+          style: const TextStyle(color: Colors.white,letterSpacing: 1, fontSize: 24),
         ),
       ),
     );

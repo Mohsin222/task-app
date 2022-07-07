@@ -37,5 +37,30 @@ class TaskModel {
 
       });
 
+ factory TaskModel.fromJson(Map<dynamic,dynamic>data){
+  return TaskModel(
+    title: data['title'].toString() , 
+  description: data['description'] ?? 'SWS',
+   dateFormat: data['dateFormat'].toString(),
+   complete: data['complete'] ?? false,
+    time:DateTime.now(),
+    tileColor: data['tileColor'].toString()
+    );
+ }
+
+
+ Map<String,dynamic> toMapss(){
+     return {
+       'title': this.title,
+        'description': this.description,
+        'time': this.time.toIso8601String(),
+        'tileColor': this.tileColor,
+        'dateFormat': this.dateFormat, 
+         'complete':this.complete
+     };
+  }
+
+  // where(Function(dynamic element) param0) {}
+
 
 }

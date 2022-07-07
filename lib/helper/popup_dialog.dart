@@ -15,7 +15,7 @@ class PopUpDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-                  backgroundColor: Colors.lightBlue,
+                  backgroundColor: Colors.black,
     title:  Text(title,style: TextStyle(color: Colors.white)),
     content:  Column(
       mainAxisSize: MainAxisSize.min,

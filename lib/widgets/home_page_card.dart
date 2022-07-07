@@ -16,9 +16,14 @@ final TaskModel todo;
       required this.index,
       this.box, required this.todo});
 
+      void a(){
+        DateTime d = DateTime.now();
+      print(  todo.time.isBefore(d));
+      }
+
   @override
   Widget build(BuildContext context) {
-    print(index);
+  
     return AspectRatio(
       aspectRatio: 4 / 2,
       child: Container(
@@ -39,11 +44,21 @@ final TaskModel todo;
                   fillColor: MaterialStateProperty.all(
                     Theme.of(context).primaryColorLight,
                   ),
-                  value: false,
+                  value: todo.complete,
                   //   value: widget.todo.complete,
                   checkColor: Colors.white,
                   focusColor: Colors.yellow,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                 
+
+                   box.putAt(index,TaskModel(
+        title:todo.title,
+        description: todo.description,
+        dateFormat: todo.dateFormat,
+        complete: value!,
+        time: todo.time,
+        tileColor: todo.tileColor));
+                  },
                 ),
               ],
             )),
@@ -54,22 +69,25 @@ final TaskModel todo;
                   todo.title, //     widget.todo.title,
                   maxLines: 1,
                   style: TextStyle(
+                     decoration: todo.complete ==true ? TextDecoration.lineThrough:TextDecoration.none,
                     fontSize: 30,
-                    color: Colors.white,
+                                 color: todo.complete ==true ? Colors.red :Colors.white,
                   ),
                 ),
               ),
             ),
-            const Expanded(
+             Expanded(
               flex: 2,
               child: Text(
-                  //widget.todo.description,
-                  'The second example uses the same size constraints which require the width and the height to be',
+                  todo.description,
+                 // 'The second example uses the same size constraints which require the width and the height to be',
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
+                  
                   style: TextStyle(
+                    decoration: todo.complete ==true ? TextDecoration.lineThrough:TextDecoration.none,
                     fontSize: 15,
-                    color: Colors.white,
+                    color: todo.complete ==true ? Colors.red :Colors.white,
                   )),
             ),
             Row(
@@ -84,10 +102,12 @@ final TaskModel todo;
                     todo.time.toString(),
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        //  fontFamily: 'Bebas Neue',
+                
+               
                           fontSize: 15,
-                          //   color: Colors.blue,
-                          color: Theme.of(context).primaryColorLight)),
+                         color:todo.time.isBefore(DateTime.now()) ?Colors.red: Theme.of(context).primaryColorLight
+ 
+                          )),
                 ),
                 IconButton(
                     onPressed: () async {
@@ -97,8 +117,10 @@ final TaskModel todo;
 
                       print(box!.toString());
                       Navigator.pop(context);
-        },);
+        },
+        );
       });
+      
                      
                     },
                     icon: 

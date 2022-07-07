@@ -1,4 +1,8 @@
 
+
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:hive/hive.dart';
@@ -10,11 +14,12 @@ import 'package:todo_task_app/views/home_page.dart';
 
 class HomeProvider extends ChangeNotifier {
 
-  
+  List<TaskModel> newList= [];
 DateTime dateTime =DateTime.now();
 TimeOfDay? timeOfDay;
  TextEditingController titleController = TextEditingController();
   TextEditingController desController = TextEditingController();
+  bool complete=false;
 
     var oldColor =0xff005757;
 
@@ -24,15 +29,7 @@ String title ='';
 
 
 
-@override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    print('despsoe');
-titleController.dispose();
-desController.dispose();
 
-  }
 
 
  
@@ -40,20 +37,45 @@ void setOldValues(TaskModel? todo){
   titleController.text=todo!.title;
   desController.text=todo.description;
   dateTime==todo.time;
-//  var x= todo.tileColor;
-//tempMainColor=todo.tileColor;
-  //tempMainColor=x;
+
   oldColor=todo.tileColor;
 print(todo.tileColor);
 
 notifyListeners();
 }
-// void resetValues(){
-//    titleController.text='';
-//    desController.text='';
-//    oldColor=0xff005757;
-//    notifyListeners();
-// }
+
+var box =Hive.box<TaskModel>('tasks') ;
+getData()async{
+var box =Hive.box<TaskModel>('tasks') ;
+
+
+TaskModel taskModel=TaskModel(title: 'zzaa', description: 'bbbaa', dateFormat: 'aaa', complete: true, time: DateTime.now(), tileColor: 0xff2233);
+//TaskModel taskModel1=box.toMap() as TaskModel;
+print(box.getAt(1)!.title);
+
+Map<String,dynamic>  userMap =taskModel.toMapss() ; 
+var json = jsonEncode(userMap);
+
+
+
+print(json);
+
+
+}
+
+Future<Map> fetch()async{
+
+ 
+   if(box.isEmpty){
+    return Future.value();
+  }else{
+    return Future.value(box.toMap());
+  }
+}
+   String searchQuery = '';
+   TaskModel? taskModel;
+
+
 
 
   void addTask( {required BuildContext context ,required int  index, TaskModel? todo} ) async {
@@ -74,7 +96,9 @@ title = titleController.text.trim();
         time: dateTime,
         tileColor: tempMainColor!.value));
 
-     
+        dateTime =DateTime.now();
+
+    
       
         notifyListeners();
 
@@ -89,6 +113,7 @@ title = titleController.text.trim();
      titleController.text=todo!.title;
      desController.text=todo.description;
      dateTime =todo.time;
+     complete=todo.complete;
 // tempMainColor=todo.tileColor ;
      if(title.isNotEmpty && description.isNotEmpty  ){
       todoBox.putAt(index,TaskModel(
@@ -100,7 +125,7 @@ title = titleController.text.trim();
         tileColor: tempMainColor!.value));
 
        // tempMainColor=null;
-    
+  
         notifyListeners();
 
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
