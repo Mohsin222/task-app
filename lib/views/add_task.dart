@@ -37,7 +37,9 @@ class AddTask extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('ADD TASK',style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
+        toolbarHeight: 100,
+        backgroundColor: Colors.black,
+        title: const Text('ADD TASK',style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold,color: Colors.white,),),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -80,7 +82,7 @@ class AddTask extends StatelessWidget {
                               flex: 1,
                               child: Text(
                                 DateFormat('yyyy-MM-dd KK:mm a')
-                                    .format(DateTime.now()),
+                                    .format(value.dateTime),
                                 style: TextStyle(
                                     fontSize: 16, color: Colors.white),
                               )),

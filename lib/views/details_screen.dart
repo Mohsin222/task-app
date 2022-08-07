@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_glow/flutter_glow.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_task_app/helper/icon_buttons.dart';
 import 'package:todo_task_app/model/task_model.dart';
+import 'package:todo_task_app/provider/home_provider.dart';
 import 'package:todo_task_app/views/add_task.dart';
 
 class DetailTaskScreen extends StatelessWidget {
@@ -15,7 +15,7 @@ final int index;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+backgroundColor: Colors.black,
       body: SafeArea(
         child: Column(
         children: [
@@ -24,7 +24,7 @@ final int index;
             padding: EdgeInsets.all(20),
             child: Container(
               alignment: Alignment.centerLeft,
-              child: Text('Task Details',style: TextStyle(fontSize: 32,fontWeight: FontWeight.bold),),),
+              child: Text('Task Details',style: TextStyle(fontSize: 32,fontWeight: FontWeight.bold,color: Colors.white),),),
           ),
             Expanded(child: Container(
               
@@ -60,13 +60,18 @@ final int index;
                 ),
               ],
             )),
-            const Spacer(),
-                    Padding(
-                     padding:  EdgeInsets.all(20.0),
-                     child: Text(todo.description,
-                     style: TextStyle(fontSize: 23),
-                     maxLines: 10,),
+        //    const Spacer(),
+                    Container(
+                      height: MediaQuery.of(context).size.height/3,
+                      child: Padding(
+                       padding:  EdgeInsets.all(20.0),
+                       child: SingleChildScrollView(
+                         child: Text(todo.description,
+                         style: TextStyle(fontSize: 23),
+                         maxLines: 10,),
+                       ),
                    ),
+                    ),
 
 const Spacer(),
                        Row(
@@ -81,9 +86,9 @@ const Spacer(),
                    
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                  //        fontFamily: 'Bebas Neue',
+              
                           fontSize: 15,
-                          //   color: Colors.blue,
+                
                           color: Theme.of(context).primaryColorLight)),
                 ),
                 
@@ -109,6 +114,7 @@ const Spacer(),
                    Expanded(child: Container()),
                              Expanded(
         child: detailButton(text: 'Update',press: (){
+Provider.of<HomeProvider>(context, listen: false).setOldValues(todo);
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context){
             return AddTask(
               index: index,
@@ -133,7 +139,7 @@ const Spacer(),
 Widget detailButton({required VoidCallback press, required String text}){
   return GlowButton(
                 onPressed: press,
-                color: Colors.grey,
+                color: Colors.white,
                 child: Text(text),
               );
 }

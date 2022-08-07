@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -62,10 +64,11 @@ return ListView.builder(
           itemCount: box.length,
         itemBuilder: ((context, index) {
              TaskModel? todo = box.getAt(index);
-             List a =[];
-             a.add(todo!.title);
+            //  List a =[];
+            //  a.add(todo!.title);
 
-             homeProvider.newList.add(todo);
+            //  homeProvider.newList.add(todo);
+        //     log( todo.title);
 
      //   homeProvider.newList=a;
 
@@ -75,11 +78,11 @@ return ListView.builder(
           onTap: (){
            
             //  print(   homeProvider.searchNotes(todo!.title.toString()));
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>DetailTaskScreen(todo: todo,index:index)));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>DetailTaskScreen(todo: todo!,index:index)));
           },
           child: Home_card(
             index: index,
-        todo: todo,
+        todo: todo!,
             box: box,
           ),
         );

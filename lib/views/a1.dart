@@ -12,7 +12,7 @@ class A1 extends StatelessWidget {
     HomeProvider homeProvider = Provider.of<HomeProvider>(context,listen: false);
    return Scaffold(
     body: FutureBuilder<Map>(
-      future:homeProvider.fetch() ,
+    //  future:homeProvider.fetch() ,
     builder: (context,AsyncSnapshot  snapshot){
       
    

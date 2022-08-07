@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_task_app/model/task_model.dart';
 import 'package:todo_task_app/provider/home_provider.dart';
+import 'package:todo_task_app/provider/practice_prov.dart';
 import 'package:todo_task_app/views/home_page.dart';
 
 Future<void> main()async {
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
            ChangeNotifierProvider(create: (context) => HomeProvider()),
+                 ChangeNotifierProvider(create: (context) => Practice_Provider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

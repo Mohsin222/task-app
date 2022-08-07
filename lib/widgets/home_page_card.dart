@@ -16,10 +16,6 @@ final TaskModel todo;
       required this.index,
       this.box, required this.todo});
 
-      void a(){
-        DateTime d = DateTime.now();
-      print(  todo.time.isBefore(d));
-      }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +77,7 @@ final TaskModel todo;
               child: Text(
                   todo.description,
                  // 'The second example uses the same size constraints which require the width and the height to be',
-                  maxLines: 2,
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   
                   style: TextStyle(
